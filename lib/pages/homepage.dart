@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:kittkatflutterlibrary/lang/kkfl_lang.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -38,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text("TODO"),
+        title: Text(getLang('titleApp')),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
