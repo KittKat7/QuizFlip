@@ -4,7 +4,7 @@ import 'package:quizflip/models/card.dart';
 
 void main() {
   test("Test the creating of cards", () {
-    Card c1 = Card(term: "term a", definition: "definition a", tags: ["testing1"]);
+    Flashcard c1 = Flashcard(term: "term a", definition: "definition a", tags: ["testing1"]);
     expect(c1.term, "term a");
     expect(c1.definition, "definition a");
     expect(c1.tags[0], "testing1");

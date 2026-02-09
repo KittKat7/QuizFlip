@@ -9,7 +9,9 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setLangMap(en_us.en_us);
   AppTheme appTheme = AppTheme();
-  CardList.getMaster();
+  Aspect.aspectWidth = 3;
+  Aspect.aspectHeight = 4;
+  CardList.getMasterTest();
   runApp(ThemedWidget(widget: MyApp(), theme: appTheme));
 }
 

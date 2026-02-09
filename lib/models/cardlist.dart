@@ -5,18 +5,18 @@ import 'card.dart';
 /// A list of flashcards
 class CardList {
   /// The cards in the list
-  final List<Card> _cards;
+  final List<Flashcard> _cards;
   /// A map of the tags to their corosponding cards
-  final Map<String, List<Card>> _tagMap;
+  final Map<String, List<Flashcard>> _tagMap;
 
   /// A singleton instance of a card list, used as an unfiltered list of all
   /// cards
   static CardList? _master;
 
   /// Constructor
-  CardList({required List<Card> cards}) : _cards = [], _tagMap = {} {
+  CardList({required List<Flashcard> cards}) : _cards = [], _tagMap = {} {
     // For every card in the passed list, add it to this list
-    for (Card c in cards) {
+    for (Flashcard c in cards) {
       addCard(c);
     }
   }
@@ -27,8 +27,31 @@ class CardList {
     return _master!;
   }
 
+  /// Get the master list, but load it with test cards
+  static CardList getMasterTest() {
+    CardList ml = getMaster();
+
+    Flashcard t1 = Flashcard(term: "Test Card 1", definition: "A definition", tags: ["testing"]);
+    Flashcard t2 = Flashcard(term: "Test Card 2", definition: "B definition", tags: ["testing", "atag"]);
+    Flashcard t3 = Flashcard(term: "Test Card 3", definition: "C definition", tags: ["testing/tag2", "atag"]);
+
+    ml.addCards([t1, t2, t3]);
+
+    return ml;
+  }
+
+  /// Returns a list of all available tags
+  List<String> getTags() {
+    return _tagMap.keys.toList();
+  }
+
+  /// Returns a list of all available cards
+  List<Flashcard> getCards() {
+    return _cards.toList();
+  }
+
   /// Add [card] to the list
-  void addCard(Card card) {
+  void addCard(Flashcard card) {
     // If the card is already added, dont add it again
     if (_cards.contains(card)) return;
     // Add the card to the card list
@@ -46,8 +69,15 @@ class CardList {
     }
   }
 
+  /// Add multiple cards to the list
+  void addCards(List<Flashcard> cards) {
+    for (Flashcard c in cards) {
+      addCard(c);
+    }
+  }
+
   /// Remove [card] from the list
-  void removeCard(Card card) {
+  void removeCard(Flashcard card) {
     // Skip if the card is not contained
     if (!_cards.contains(card)) return;
     // Remove the card from the list
@@ -73,7 +103,7 @@ class CardList {
       for (String lt in _tagMap.keys) {
         // For every matching card, add it to the new list
         if (lt.startsWith(ft)) {
-          for (Card c in _tagMap[lt]!) {
+          for (Flashcard c in _tagMap[lt]!) {
             cl.addCard(c);
           }
         }
@@ -85,15 +115,15 @@ class CardList {
 
   /// Gets a card with the matching term. Throws an [Exception] if the card is
   /// not found.
-  Card getCard(String term) {
-    for (Card c in _cards) {
+  Flashcard getCard(String term) {
+    for (Flashcard c in _cards) {
       if (c.term == term) return c;
     }
     throw Exception("Card Not Found!");
   }
 
   /// Get a random card from the list. Throws an exception if the list is empty.
-  Card getRandomCard() {
+  Flashcard getRandomCard() {
     int i = Random().nextInt(_cards.length);
     return _cards[i];
   }
