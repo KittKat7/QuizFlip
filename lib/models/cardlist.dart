@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'card.dart';
 
 /// A list of flashcards
@@ -7,6 +9,8 @@ class CardList {
   /// A map of the tags to their corosponding cards
   final Map<String, List<Card>> _tagMap;
 
+  /// A singleton instance of a card list, used as an unfiltered list of all
+  /// cards
   static CardList? _master;
 
   /// Constructor
@@ -77,6 +81,21 @@ class CardList {
     }
 
     return cl;
+  }
+
+  /// Gets a card with the matching term. Throws an [Exception] if the card is
+  /// not found.
+  Card getCard(String term) {
+    for (Card c in _cards) {
+      if (c.term == term) return c;
+    }
+    throw Exception("Card Not Found!");
+  }
+
+  /// Get a random card from the list. Throws an exception if the list is empty.
+  Card getRandomCard() {
+    int i = Random().nextInt(_cards.length);
+    return _cards[i];
   }
 
 }
