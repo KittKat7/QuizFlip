@@ -1,0 +1,12 @@
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:quizflip/models/card.dart';
+
+void main() {
+  test("Test the creating of card lists", () {
+    Card c1 = Card(term: "term a", definition: "definition a", tags: ["testing1"]);
+    expect(c1.term, "term a");
+    expect(c1.definition, "definition a");
+    expect(c1.tags[0], "testing1");
+  });
+}
