@@ -1,8 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
 import 'package:kittkatflutterlibrary/lang/kkfl_lang.dart';
 import 'package:kittkatflutterlibrary/widgets/src/aspect.dart';
 import 'package:quizflip/models/card.dart';
+import 'package:quizflip/pages/review_page.dart';
 import 'package:quizflip/widgets/card_widget.dart';
 
 import '../models/cardlist.dart';
@@ -43,8 +45,13 @@ class _HomePageState extends State<HomePage> {
             children: [
               Row(children: [
                 Expanded(child: ElevatedButton(
-                  onPressed: (){},
+                  onPressed: () => Navigator.push(
+                    context,
+                    genRoute(ReviewPage(list: CardList.getMaster()))),
                   child: Text(getLang('btnReview')))),
+                Expanded(child: ElevatedButton(
+                  onPressed: (){},
+                  child: Text(getLang('btnWeiver')))),
                 Expanded(child: ElevatedButton(
                   onPressed: (){},
                   child: Text(getLang('btnAddCard'))))

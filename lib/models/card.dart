@@ -15,6 +15,15 @@ class Flashcard {
   /// Constructor
   Flashcard({required this.term, required this.definition, required this.tags});
 
+  /// Get the tabs as a space separated string
+  String getTagsString() {
+    String ts = '';
+    for (String t in tags) {
+      ts += '#$t ';
+    }
+    return ts.trim();
+  }
+
   @override
   /// Override the == operator to compare card terms only
   bool operator ==(Object other) {

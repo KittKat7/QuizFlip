@@ -16,15 +16,15 @@ class _CardWidgetState extends State<CardWidget> {
   bool isFlipped = false;
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: .all(1), child: OutlinedButton(
+    return Padding(padding: .all(1), child: SizedBox(width: .infinity, child: OutlinedButton(
       onPressed: () => setState(() => isFlipped = !isFlipped),
       child: Column(
         children: [
           !isFlipped ? Text(widget.card.term) : Text(widget.card.definition),
-          !isFlipped ? Text("--- TODO") : Text("TODO"),
+          !isFlipped ? Text(widget.card.getTagsString()) : SizedBox.shrink(),
         ],
       ),
-    ));
+    )));
   }
 
 }
