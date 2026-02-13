@@ -50,7 +50,9 @@ class _HomePageState extends State<HomePage> {
                     genRoute(ReviewPage(list: CardList.getMaster()))),
                   child: Text(getLang('btnReview')))),
                 Expanded(child: ElevatedButton(
-                  onPressed: (){},
+                  onPressed: () => Navigator.push(
+                    context,
+                    genRoute(ReviewPage(list: CardList.getMaster(), weiver: true,))),
                   child: Text(getLang('btnWeiver')))),
                 Expanded(child: ElevatedButton(
                   onPressed: (){},

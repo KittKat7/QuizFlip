@@ -9,17 +9,28 @@ import '../models/cardlist.dart';
 
 class ReviewPage extends StatefulWidget {
   final CardList list;
-  const ReviewPage({super.key, required this.list});
+  final bool weiver;
+  const ReviewPage({super.key, required this.list, this.weiver = false});
 
   @override
   State<ReviewPage> createState() => _ReviewPageState();
 }
 
 class _ReviewPageState extends State<ReviewPage> {
+  late Flashcard card;
+
+  @override
+  void initState() {
+    card = widget.list.getRandomCard();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Flashcard card = widget.list.getRandomCard();
+    CardWidget fcwidget = CardWidget(
+      key: ValueKey(card),
+      card: card,
+      isFlipped: widget.weiver,);
 
     return Scaffold(
       appBar: AppBar(
@@ -28,11 +39,13 @@ class _ReviewPageState extends State<ReviewPage> {
       ),
       body: Aspect(
         child: Center(
-          child: CardWidget(card: card),
+          child: fcwidget,
         )
       ),
       floatingActionButton: IconButton(
-        onPressed: () => setState(() => card = widget.list.getRandomCard()),
+        onPressed: () => setState(() {
+          card = widget.list.getRandomCard(card);
+        }),
         icon: Icon(Icons.arrow_right)),
     );
   }

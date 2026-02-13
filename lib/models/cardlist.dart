@@ -123,9 +123,14 @@ class CardList {
   }
 
   /// Get a random card from the list. Throws an exception if the list is empty.
-  Flashcard getRandomCard() {
+  /// If [card] is passed, then choose a random card which is NOT the passed
+  /// card.
+  Flashcard getRandomCard([Flashcard? card]) {
     int i = Random().nextInt(_cards.length);
-    return _cards[i];
+    if (card != null) {
+      if (_cards[i] == card) i++;
+    }
+    return _cards[i % _cards.length];
   }
 
 }
