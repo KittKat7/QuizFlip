@@ -18,16 +18,29 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  late CardList list;
+
+  @override
+  void initState() {
+    list = CardList.getMaster();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    List<String> tags = CardList.getMaster().getTags();
-    List<Widget> tagButtons = [];
+    List<String> tags = list.getTags();
+    List<Widget> tagButtons = [
+      // TODO Make this go up a level instead of just reseting the tag filter
+      IconButton(
+        onPressed: () => setState(() => list = CardList.getMaster()),
+        icon: Icon(Icons.refresh_outlined))
+    ];
     for (String t in tags) {
-      tagButtons.add(Padding(padding: EdgeInsetsGeometry.all(1), child: TextButton(child: Text(t), onPressed: (){},)));
+      tagButtons.add(Padding(padding: EdgeInsetsGeometry.all(1), child: TextButton(child: Text(t), onPressed: () => setState(() => list = list.filterList([t])),)));
     }
 
-    List<Flashcard> cards = CardList.getMaster().getCards();
+    List<Flashcard> cards = list.getCards();
     List<Widget> cardWidgets = [];
     for (Flashcard c in cards) {
       cardWidgets.add(CardWidget(card: c));
@@ -47,12 +60,12 @@ class _HomePageState extends State<HomePage> {
                 Expanded(child: ElevatedButton(
                   onPressed: () => Navigator.push(
                     context,
-                    genRoute(ReviewPage(list: CardList.getMaster()))),
+                    genRoute(ReviewPage(list: list))),
                   child: Text(getLang('btnReview')))),
                 Expanded(child: ElevatedButton(
                   onPressed: () => Navigator.push(
                     context,
-                    genRoute(ReviewPage(list: CardList.getMaster(), weiver: true,))),
+                    genRoute(ReviewPage(list: list, weiver: true,))),
                   child: Text(getLang('btnWeiver')))),
                 Expanded(child: ElevatedButton(
                   onPressed: (){},
