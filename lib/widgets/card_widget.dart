@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../models/card.dart';
+import '../models/flashcard.dart';
 
 class CardWidget extends StatefulWidget {
   final Flashcard card;

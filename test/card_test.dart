@@ -1,6 +1,6 @@
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quizflip/models/card.dart';
+import 'package:quizflip/models/flashcard.dart';
 
 void main() {
   test("Test the creating of cards", () {

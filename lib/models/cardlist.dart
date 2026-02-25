@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'card.dart';
+import 'flashcard.dart';
 
 /// A list of flashcards
 class CardList {

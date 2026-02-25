@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
-import '/models/card.dart';
+import '../models/flashcard.dart';
 import '/pages/review_page.dart';
 import '/widgets/card_widget.dart';
 
