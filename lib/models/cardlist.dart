@@ -6,15 +6,25 @@ import 'card.dart';
 class CardList {
   /// The cards in the list
   final List<Flashcard> _cards;
+  /// The cards in the list that dont match the filter
+  List<Flashcard> _filteredCards;
   /// A map of the tags to their corosponding cards
   final Map<String, List<Flashcard>> _tagMap;
+  /// A tag filter
+  String _filter;
+  String get filter => _filter;
 
   /// A singleton instance of a card list, used as an unfiltered list of all
   /// cards
   static CardList? _master;
 
   /// Constructor
-  CardList({required List<Flashcard> cards}) : _cards = [], _tagMap = {} {
+  CardList({required List<Flashcard> cards})
+    : _cards = [],
+      _filteredCards = [],
+      _tagMap = {},
+      _filter = ''
+    {
     // For every card in the passed list, add it to this list
     for (Flashcard c in cards) {
       addCard(c);
@@ -45,9 +55,21 @@ class CardList {
     return _tagMap.keys.toList();
   }
 
-  /// Returns a list of all available cards
-  List<Flashcard> getCards() {
-    return _cards.toList();
+  /// Returns a list of filtered tags
+  List<String> getFilteredTags() {
+    List<String> tags = [];
+    for (Flashcard c in _filteredCards) {
+      for (String t in c.tags) {
+        if (tags.contains(t)) continue;
+        if (t.startsWith(_filter)) tags.add(t);
+      }
+    }
+    return tags;
+  }
+
+  /// Returns a list of filtered cards
+  List<Flashcard> getFilteredCards() {
+    return _filteredCards.toList();
   }
 
   /// Add [card] to the list
@@ -67,6 +89,8 @@ class CardList {
         _tagMap[t] = [card];
       }
     }
+    // TODO replace with more efficient system
+    filterList(_filter);
   }
 
   /// Add multiple cards to the list
@@ -82,6 +106,8 @@ class CardList {
     if (!_cards.contains(card)) return;
     // Remove the card from the list
     _cards.remove(card);
+    // Remove from filtered cards
+    if (_filteredCards.contains(card)) _filteredCards.remove(card);
     // Remove from associated tags
     for (String t in card.tags) {
       // Remove the card from a tag
@@ -94,23 +120,28 @@ class CardList {
   }
 
   /// Filters the list by a list of tags and return the new filtered list
-  CardList filterList(List<String> tagList) {
-    CardList cl = CardList(cards: []);
+  CardList filterList(String tag) {
+    _filter = tag;
+    _filteredCards = [];
     // For every tag in the filter list, if these is a tag in this list that
     // starts with the filter tag, add all the cards from that filter tag to
     // the new list
-    for (String ft in tagList) {
-      for (String lt in _tagMap.keys) {
-        // For every matching card, add it to the new list
-        if (lt.startsWith(ft)) {
-          for (Flashcard c in _tagMap[lt]!) {
-            cl.addCard(c);
-          }
+    for (String lt in _tagMap.keys) {
+      // For every matching card, add it to the new list
+      if (lt.startsWith(_filter)) {
+        for (Flashcard c in _tagMap[lt]!) {
+          if (!_filteredCards.contains(c)) _filteredCards.add(c);
         }
       }
     }
+    return this;
+  }
 
-    return cl;
+  void popFilter() {
+    List<String> stack = _filter.split('/');
+    stack.removeLast();
+    _filter = stack.join('/');
+    filterList(_filter);
   }
 
   /// Gets a card with the matching term. Throws an [Exception] if the card is

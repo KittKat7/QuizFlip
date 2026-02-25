@@ -29,18 +29,36 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    List<String> tags = list.getTags();
+    List<String> tags = list.getFilteredTags();
     List<Widget> tagButtons = [
       // TODO Make this go up a level instead of just reseting the tag filter
       IconButton(
-        onPressed: () => setState(() => list = CardList.getMaster()),
-        icon: Icon(Icons.refresh_outlined))
+        onPressed: () => setState(() => list.popFilter() ),
+        icon: Icon(Icons.arrow_upward_rounded))
     ];
+    if (list.filter.isNotEmpty) {
+      tagButtons.add(Padding(
+        padding: EdgeInsetsGeometry.all(1),
+        child: TextButton(child: Text('[${list.filter}]'),
+        onPressed: () => setState(() {
+          // list = list.filterList(t);
+          // tags = list.getFilteredTags();
+        }),)
+      ));
+    }
     for (String t in tags) {
-      tagButtons.add(Padding(padding: EdgeInsetsGeometry.all(1), child: TextButton(child: Text(t), onPressed: () => setState(() => list = list.filterList([t])),)));
+      if (t == list.filter) continue;
+      tagButtons.add(Padding(
+        padding: EdgeInsetsGeometry.all(1),
+        child: TextButton(child: Text(t),
+        onPressed: () => setState(() {
+          list = list.filterList(t);
+          tags = list.getFilteredTags();
+        }),)
+      ));
     }
 
-    List<Flashcard> cards = list.getCards();
+    List<Flashcard> cards = list.getFilteredCards();
     List<Widget> cardWidgets = [];
     for (Flashcard c in cards) {
       cardWidgets.add(CardWidget(card: c));
