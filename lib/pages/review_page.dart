@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:kittkatflutterlibrary/lang/kkfl_lang.dart';
 import 'package:kittkatflutterlibrary/widgets/src/aspect.dart';
-import 'package:quizflip/models/card.dart';
-import 'package:quizflip/widgets/card_widget.dart';
+import '/models/card.dart';
+import '/widgets/card_widget.dart';
 
 import '../models/cardlist.dart';
 
