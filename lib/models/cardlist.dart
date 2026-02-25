@@ -157,11 +157,11 @@ class CardList {
   /// If [card] is passed, then choose a random card which is NOT the passed
   /// card.
   Flashcard getRandomCard([Flashcard? card]) {
-    int i = Random().nextInt(_cards.length);
+    int i = Random().nextInt(_filteredCards.length);
     if (card != null) {
-      if (_cards[i] == card) i++;
+      if (_filteredCards[i] == card) i++;
     }
-    return _cards[i % _cards.length];
+    return _filteredCards[i % _filteredCards.length];
   }
 
 }
