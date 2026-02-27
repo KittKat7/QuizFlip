@@ -27,15 +27,17 @@ class _CardWidgetState extends State<CardWidget> {
     return Padding(padding: .all(7), child: SizedBox(
       width: .infinity,
       child: OutlinedButton(
+        style: ButtonStyle(
+          shape: .all(RoundedRectangleBorder(borderRadius: .circular(10)))),
         onPressed: () => setState(() => isFlipped = !isFlipped),
-        child: Column(
+        child: Padding(padding: .all(7), child: Column(
           mainAxisSize: .min,
           children: [
             !isFlipped ? Text(widget.card.term) : Text(widget.card.definition),
             Divider(height: 1,),
             Text(widget.card.getTagsString()),
           ],
-        ),
+        )),
       )
     ));
   }

@@ -41,9 +41,9 @@ class CardList {
   static CardList getMasterTest() {
     CardList ml = getMaster();
 
-    Flashcard t1 = Flashcard(term: "Test Card 1", definition: "A definition", tags: ["testing"]);
-    Flashcard t2 = Flashcard(term: "Test Card 2", definition: "B definition", tags: ["testing", "atag"]);
-    Flashcard t3 = Flashcard(term: "Test Card 3", definition: "C definition", tags: ["testing/tag2", "atag"]);
+    Flashcard t1 = Flashcard(term: "Test Card 1", definition: "A definition", tags: ["#testing"]);
+    Flashcard t2 = Flashcard(term: "Test Card 2", definition: "B definition", tags: ["#testing", "#atag"]);
+    Flashcard t3 = Flashcard(term: "Test Card 3", definition: "C definition", tags: ["#testing/tag2", "#atag"]);
 
     ml.addCards([t1, t2, t3]);
 

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
+import 'package:quizflip/models/fileio.dart';
 import '../models/flashcard.dart';
 import '/pages/review_page.dart';
 import '/widgets/card_widget.dart';
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
         title: Text(getLang('titleApp')),
       ),
       body: Aspect(
-        child: Center(
+        child: SingleChildScrollView(child: Center(
           child: Column(
             children: [
               Row(children: [
@@ -87,14 +88,27 @@ class _HomePageState extends State<HomePage> {
                   onPressed: (){},
                   child: Text(getLang('btnAddCard'))))
               ]),
+              Row(children: [
+                Expanded(child: ElevatedButton(
+                  onPressed: () {
+                    importFromCSV().then(
+                      (cards) => setState(() => list.addCards(cards)));
+                  }, // TODO
+                  child: Text(getLang('btnImport')),
+                )),
+                Expanded(child: ElevatedButton(
+                  onPressed: (){}, // TODO
+                  child: Text(getLang('btnExport')),
+                ))
+              ]),
               Row(children: tagButtons),
               Column(
                 mainAxisSize: .min,
                 children: cardWidgets,
-              ),
+              )
             ],
           ),
-        )
+        ))
       ),
     );
   }
