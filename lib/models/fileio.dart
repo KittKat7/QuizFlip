@@ -1,6 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:csv/csv.dart';
 import 'package:file_picker/file_picker.dart';
-import 'dart:io';
+// import 'dart:';
 import '/models/flashcard.dart';
 
 Future<List<Flashcard>> importFromCSV() async {
@@ -12,8 +14,8 @@ Future<List<Flashcard>> importFromCSV() async {
     String fileString;
 
     if (result != null) {
-        File file = File(result.files.single.path!);
-        fileString = await file.readAsString();
+        Uint8List fileBytes = result.files.first.bytes!;
+        fileString = String.fromCharCodes(fileBytes);
     } else {
         // TODO User cancelled
         throw Exception("TODO"); // TODO
