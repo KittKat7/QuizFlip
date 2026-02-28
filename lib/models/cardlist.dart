@@ -67,6 +67,10 @@ class CardList {
     return tags;
   }
 
+  List<Flashcard> getAllCards() {
+    return _cards.toList();
+  }
+
   /// Returns a list of filtered cards
   List<Flashcard> getFilteredCards() {
     return _filteredCards.toList();

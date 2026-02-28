@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                 Expanded(child: ElevatedButton(
                   onPressed: () {
                     importFromCSV().then(
-                      (cards) => setState(() => list.addCards(cards)));
+                      (v) => setState((){}));
                   }, // TODO
                   child: Text(getLang('btnImport')),
                 )),

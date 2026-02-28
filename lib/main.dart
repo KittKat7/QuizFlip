@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
 
+import '/models/fileio.dart';
 import 'lang/en_us.dart' as en_us;
 import 'models/cardlist.dart';
 import 'pages/home_page.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setLangMap(en_us.en_us);
   AppTheme appTheme = AppTheme();
   Aspect.aspectWidth = 3;
   Aspect.aspectHeight = 4;
-  CardList.getMasterTest();
+  await initializeFileStorage();
+  CardList.getMasterTest().addCards(loadFlashcards());
   runApp(ThemedWidget(widget: MyApp(), theme: appTheme));
 }
 

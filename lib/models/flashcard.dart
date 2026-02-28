@@ -55,6 +55,10 @@ class Flashcard {
     return Flashcard(term: term, definition: definition, tags: tags);
   }
 
+  List<String> toCSV() {
+    return [term, definition, tags.join()];
+  }
+
   @override
   /// Override the == operator to compare card terms only
   bool operator ==(Object other) {
