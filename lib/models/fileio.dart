@@ -29,7 +29,7 @@ List<Flashcard> parseFromCSV(String cardsCSV) {
 
 List<Flashcard> loadFlashcards() {
     String? cardsStr = prefs.getString('cardsCSV');
-    if (cardsStr == null) return [];
+    if (cardsStr == null) return Flashcard.exampleList;
     return parseFromCSV(cardsStr);
 }
 

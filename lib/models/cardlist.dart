@@ -37,19 +37,6 @@ class CardList {
     return _master!;
   }
 
-  /// Get the master list, but load it with test cards
-  static CardList getMasterTest() {
-    CardList ml = getMaster();
-
-    Flashcard t1 = Flashcard(term: "Test Card 1", definition: "A definition", tags: ["#testing"]);
-    Flashcard t2 = Flashcard(term: "Test Card 2", definition: "B definition", tags: ["#testing", "#atag"]);
-    Flashcard t3 = Flashcard(term: "Test Card 3", definition: "C definition", tags: ["#testing/tag2", "#atag"]);
-
-    ml.addCards([t1, t2, t3]);
-
-    return ml;
-  }
-
   /// Returns a list of all available tags
   List<String> getTags() {
     return _tagMap.keys.toList();

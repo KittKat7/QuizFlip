@@ -13,7 +13,7 @@ void main() async {
   Aspect.aspectWidth = 3;
   Aspect.aspectHeight = 4;
   await initializeFileStorage();
-  CardList.getMasterTest().addCards(loadFlashcards());
+  CardList.getMaster().addCards(loadFlashcards());
   runApp(ThemedWidget(widget: MyApp(), theme: appTheme));
 }
 

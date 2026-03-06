@@ -3,8 +3,23 @@
 // | Term | Definition | Tags
 // | a    | b          | #a #d
 
+import 'package:kittkatflutterlibrary/lang/kkfl_lang.dart';
+
 /// A flashcard
 class Flashcard {
+
+  static final Flashcard example1 = Flashcard(term: getLang('txtHelpCard1t'), definition: getLang('txtHelpCard1d'), tags: ["#qf-example"]);
+  static final Flashcard example2 = Flashcard(term: getLang('txtHelpCard2t'), definition: getLang('txtHelpCard2d'), tags: ["#qf-example"]);
+  static final Flashcard example3 = Flashcard(term: getLang('txtHelpCard3t'), definition: getLang('txtHelpCard3d'), tags: ["#qf-example"]);
+  static final Flashcard example4 = Flashcard(term: getLang('txtHelpCard4t'), definition: getLang('txtHelpCard4d'), tags: ["#qf-example"]);
+  static final List<Flashcard> exampleList = [
+    example1,
+    example2,
+    example3,
+    example4,
+  ];
+
+
   /// The term for the card
   String term;
   /// The definition for the card
