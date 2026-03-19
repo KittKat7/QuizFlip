@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:kittkatflutterlibrary/kittkatflutterlibrary.dart';
 import 'package:quizflip/models/fileio.dart';
+import 'package:quizflip/widgets/confirm_popup.dart';
 import '../models/flashcard.dart';
 import '/pages/review_page.dart';
 import '/widgets/card_widget.dart';
@@ -63,6 +64,39 @@ class _HomePageState extends State<HomePage> {
       cardWidgets.add(CardWidget(card: c));
     }
 
+    // Create button variables
+    var deleteFilteredButton = Expanded(child: ElevatedButton(
+      onPressed: () => 
+        showConfirmPopup(
+          context,
+          getLang('msgTitleConfirmDeleteAllFilter'),
+          getLang('msgConfirmDeleteAllFilter'),
+          () => setState(() =>
+            CardList.getMaster().removeFilteredCards()),
+        ),
+      child: Text(getLang('btnDeleteAll'))));
+    var importButton = Expanded(child: ElevatedButton(
+      onPressed: () {
+        importFromCSV().then(
+          (v) => setState((){}));
+      }, // TODO
+      child: Text(getLang('btnImport'))));
+    var exportButton = Expanded(child: ElevatedButton(
+      onPressed: (){}, // TODO
+      child: Text(getLang('btnExport'))));
+    var addCardButton = Expanded(child: ElevatedButton(
+      onPressed: (){},
+      child: Text(getLang('btnAddCard'))));
+    var weiverButton = Expanded(child: ElevatedButton(
+      onPressed: () => Navigator.push(
+        context,
+        genRoute(ReviewPage(list: list, weiver: true,))),
+      child: Text(getLang('btnWeiver'))));
+    var reviewButton = Expanded(child: ElevatedButton(
+      onPressed: () => Navigator.push(
+        context,
+        genRoute(ReviewPage(list: list))),
+      child: Text(getLang('btnReview'))));
 
     return Scaffold(
       appBar: AppBar(
@@ -70,46 +104,33 @@ class _HomePageState extends State<HomePage> {
         title: Text(getLang('titleApp')),
       ),
       body: Aspect(
-        child: SingleChildScrollView(child: Center(
-          child: Column(
-            children: [
-              Row(children: [
-                Expanded(child: ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    genRoute(ReviewPage(list: list))),
-                  child: Text(getLang('btnReview')))),
-                Expanded(child: ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    genRoute(ReviewPage(list: list, weiver: true,))),
-                  child: Text(getLang('btnWeiver')))),
-                Expanded(child: ElevatedButton(
-                  onPressed: (){},
-                  child: Text(getLang('btnAddCard'))))
-              ]),
-              Row(children: [
-                Expanded(child: ElevatedButton(
-                  onPressed: () {
-                    importFromCSV().then(
-                      (v) => setState((){}));
-                  }, // TODO
-                  child: Text(getLang('btnImport')),
-                )),
-                Expanded(child: ElevatedButton(
-                  onPressed: (){}, // TODO
-                  child: Text(getLang('btnExport')),
-                ))
-              ]),
-              Row(children: tagButtons),
-              Column(
-                mainAxisSize: .min,
-                children: cardWidgets,
-              )
-            ],
-          ),
-        ))
-      ),
+        child: SingleChildScrollView(child: Column(
+          children: [
+            // Row 1
+            Row(children: [
+              reviewButton,
+              weiverButton,
+              addCardButton
+            ]),
+            // Row 2
+            Row(children: [
+              importButton,
+              exportButton,
+              deleteFilteredButton
+            ]),
+            // Tag row
+            SizedBox(
+              width: double.infinity, 
+              child: Wrap(alignment: .start, children: tagButtons,),
+            ),
+            // Flashcards
+            Column(
+              mainAxisSize: .min,
+              children: cardWidgets,
+            )
+          ],
+        ),
+      ))
     );
   }
 }

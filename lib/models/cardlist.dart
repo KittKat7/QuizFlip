@@ -110,6 +110,17 @@ class CardList {
     }
   }
 
+  /// Removes all cards in the filtered list
+  void removeFilteredCards() {
+    List<Flashcard> tl = [];
+    for (Flashcard c in _filteredCards) {
+      tl.add(c);
+    }
+    for (Flashcard c in tl) {
+      removeCard(c);
+    }
+  }
+
   /// Filters the list by a list of tags and return the new filtered list
   CardList filterList(String tag) {
     _filter = tag;

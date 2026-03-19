@@ -8,6 +8,11 @@ const Map<String, String> en_us = {
   'btnAddCard': 'Add Card',
   'btnImport': 'Import',
   'btnExport': 'Export',
+  'btnDeleteAll': 'Delete Filtered',
+
+  'msgTitleConfirmDeleteAllFilter': 'Confirm Delete?',
+  'msgConfirmDeleteAllFilter': 'Do you want to permanently delete ALL cards '
+    'with the current filter?',
 
   'txtHelpCard1t': 'How do you flip a flashcard? (click it)',
   'txtHelpCard2t': 'How do you sort flashcards?',
