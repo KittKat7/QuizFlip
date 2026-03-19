@@ -19,7 +19,6 @@ class Flashcard {
     example4,
   ];
 
-
   /// The term for the card
   String term;
   /// The definition for the card
